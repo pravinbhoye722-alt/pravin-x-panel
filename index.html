@@ -1,72 +1,667 @@
 <!DOCTYPE html>
 <html lang="mr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pravin X Panel</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f2f4f7;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pravin X Panel</title>
 
-    .header {
-      background: #111827;
-      color: white;
-      padding: 20px;
-      text-align: center;
-      font-size: 24px;
-      font-weight: bold;
-    }
+<style>
+*{box-sizing:border-box}
 
-    .container {
-      padding: 20px;
-    }
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f2f4f7;
+  color:#111827;
+}
 
-    .card {
-      background: white;
-      padding: 20px;
-      margin-bottom: 15px;
-      border-radius: 15px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    }
+.header{
+  background:#111827;
+  color:white;
+  padding:20px;
+  text-align:center;
+  font-size:24px;
+  font-weight:bold;
+}
 
-    .button {
-      display: block;
-      width: 100%;
-      padding: 14px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 10px;
-      background: #2563eb;
-      color: white;
-      font-size: 16px;
-    }
-  </style>
+.demo{
+  background:#991b1b;
+  color:white;
+  text-align:center;
+  padding:8px;
+  font-weight:bold;
+}
+
+.container{
+  max-width:700px;
+  margin:auto;
+  padding:15px;
+}
+
+.card{
+  background:white;
+  padding:20px;
+  margin-bottom:15px;
+  border-radius:15px;
+  box-shadow:0 3px 10px rgba(0,0,0,.1);
+}
+
+.timer{
+  text-align:center;
+  font-size:42px;
+  font-weight:bold;
+  color:#2563eb;
+}
+
+.period{
+  text-align:center;
+  color:#6b7280;
+}
+
+.number{
+  text-align:center;
+  font-size:70px;
+  font-weight:bold;
+  margin:10px;
+}
+
+.result{
+  text-align:center;
+  font-size:24px;
+  font-weight:bold;
+  margin:8px;
+}
+
+.green{color:#16a34a}
+.red{color:#dc2626}
+.violet{color:#9333ea}
+
+.button{
+  width:100%;
+  padding:14px;
+  margin-top:10px;
+  border:0;
+  border-radius:10px;
+  background:#2563eb;
+  color:white;
+  font-size:16px;
+}
+
+.back{
+  background:#6b7280;
+}
+
+.hidden{
+  display:none;
+}
+
+input{
+  width:100%;
+  padding:13px;
+  margin-top:8px;
+  border:1px solid #ccc;
+  border-radius:9px;
+  font-size:16px;
+}
+
+.history{
+  border-bottom:1px solid #ddd;
+  padding:10px 0;
+  display:flex;
+  justify-content:space-between;
+}
+
+.user{
+  background:#f3f4f6;
+  padding:12px;
+  margin-top:8px;
+  border-radius:8px;
+}
+
+.delete{
+  float:right;
+  background:#dc2626;
+  color:white;
+  border:0;
+  padding:7px;
+  border-radius:6px;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="header">
-    Pravin X Panel
-  </div>
+<div class="header" id="headerName">
+Pravin X Panel
+</div>
 
-  <div class="container">
+<div class="demo">
+⚠️ DEMO MODE — Real Money नाही
+</div>
 
-    <div class="card">
-      <h2>Welcome Pravin Bhoye 👋</h2>
-      <p>तुमच्या Admin Panel मध्ये स्वागत आहे.</p>
-    </div>
+<div class="container">
 
-    <div class="card">
-      <h3>Dashboard</h3>
-      <button class="button">Users</button>
-      <button class="button">Settings</button>
-      <button class="button">Reports</button>
-    </div>
+<!-- DASHBOARD -->
+<div id="dashboard">
 
-  </div>
+<div class="card">
+
+<h2>Welcome Pravin Bhoye 👋</h2>
+
+<p>तुमच्या Admin Panel मध्ये स्वागत आहे.</p>
+
+</div>
+
+<div class="card">
+
+<h3>📊 Live Demo Result</h3>
+
+<div class="period">
+PERIOD
+</div>
+
+<div id="period" class="period">
+1000001
+</div>
+
+<div class="period">
+TIME REMAINING
+</div>
+
+<div id="timer" class="timer">
+60
+</div>
+
+<div id="number" class="number">
+-
+</div>
+
+<div id="color" class="result">
+-
+</div>
+
+<div id="size" class="result">
+-
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>📜 Result History</h3>
+
+<div id="history">
+अजून Demo Result नाही.
+</div>
+
+</div>
+
+<div class="card">
+
+<button class="button"
+onclick="showPage('users')">
+👥 Users
+</button>
+
+<button class="button"
+onclick="showPage('settings')">
+⚙️ Settings
+</button>
+
+<button class="button"
+onclick="showPage('reports')">
+📈 Reports
+</button>
+
+</div>
+
+</div>
+
+
+<!-- USERS -->
+
+<div id="users" class="hidden">
+
+<div class="card">
+
+<h2>👥 Users</h2>
+
+<input
+id="userName"
+placeholder="User चे नाव">
+
+<button class="button"
+onclick="addUser()">
+➕ Add User
+</button>
+
+<div id="userList"></div>
+
+<button class="button back"
+onclick="showPage('dashboard')">
+← Dashboard
+</button>
+
+</div>
+
+</div>
+
+
+<!-- SETTINGS -->
+
+<div id="settings" class="hidden">
+
+<div class="card">
+
+<h2>⚙️ Settings</h2>
+
+<input
+id="panelName"
+value="Pravin X Panel">
+
+<button class="button"
+onclick="saveSettings()">
+💾 Save
+</button>
+
+<p id="settingMessage"></p>
+
+<button class="button back"
+onclick="showPage('dashboard')">
+← Dashboard
+</button>
+
+</div>
+
+</div>
+
+
+<!-- REPORTS -->
+
+<div id="reports" class="hidden">
+
+<div class="card">
+
+<h2>📈 Reports</h2>
+
+<div id="reportsList">
+No Reports
+</div>
+
+<button class="button"
+onclick="clearReports()">
+🗑️ Clear Reports
+</button>
+
+<button class="button back"
+onclick="showPage('dashboard')">
+← Dashboard
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+let seconds=60;
+let period=1000001;
+
+let history=
+JSON.parse(localStorage.getItem("demoHistory"))||[];
+
+let users=
+JSON.parse(localStorage.getItem("users"))||[];
+
+let reports=
+JSON.parse(localStorage.getItem("reports"))||[];
+
+
+function generateResult(){
+
+let number=
+Math.floor(Math.random()*9)+1;
+
+let color;
+
+if(number===5){
+color="Violet";
+}
+else if(number%2===0){
+color="Red";
+}
+else{
+color="Green";
+}
+
+let size=
+number<=4 ? "Small":"Big";
+
+
+document.getElementById("number")
+.innerText=number;
+
+document.getElementById("color")
+.innerText=color;
+
+document.getElementById("size")
+.innerText=size;
+
+
+let colorBox=
+document.getElementById("color");
+
+colorBox.className="result";
+
+if(color==="Green"){
+colorBox.classList.add("green");
+}
+
+if(color==="Red"){
+colorBox.classList.add("red");
+}
+
+if(color==="Violet"){
+colorBox.classList.add("violet");
+}
+
+
+history.unshift({
+period:period,
+number:number,
+color:color,
+size:size
+});
+
+history=history.slice(0,10);
+
+localStorage.setItem(
+"demoHistory",
+JSON.stringify(history)
+);
+
+displayHistory();
+
+period++;
+
+document.getElementById("period")
+.innerText=period;
+
+}
+
+
+function displayHistory(){
+
+let box=
+document.getElementById("history");
+
+if(history.length===0){
+box.innerText="अजून Demo Result नाही.";
+return;
+}
+
+box.innerHTML=
+history.map(x=>`
+
+<div class="history">
+
+<span>${x.period}</span>
+
+<b>${x.number}</b>
+
+<span>${x.color}</span>
+
+<span>${x.size}</span>
+
+</div>
+
+`).join("");
+
+}
+
+
+setInterval(function(){
+
+seconds--;
+
+document.getElementById("timer")
+.innerText=seconds;
+
+if(seconds<=0){
+
+generateResult();
+
+seconds=60;
+
+}
+
+},1000);
+
+
+function showPage(page){
+
+document.getElementById("dashboard")
+.classList.add("hidden");
+
+document.getElementById("users")
+.classList.add("hidden");
+
+document.getElementById("settings")
+.classList.add("hidden");
+
+document.getElementById("reports")
+.classList.add("hidden");
+
+document.getElementById(page)
+.classList.remove("hidden");
+
+if(page==="users"){
+displayUsers();
+}
+
+if(page==="reports"){
+displayReports();
+}
+
+}
+
+
+function addUser(){
+
+let input=
+document.getElementById("userName");
+
+let name=input.value.trim();
+
+if(!name){
+alert("User चे नाव टाका.");
+return;
+}
+
+users.push({
+name:name,
+date:new Date().toLocaleString("mr-IN")
+});
+
+localStorage.setItem(
+"users",
+JSON.stringify(users)
+);
+
+reports.unshift(
+"User जोडला: "+name
+);
+
+localStorage.setItem(
+"reports",
+JSON.stringify(reports)
+);
+
+input.value="";
+
+displayUsers();
+
+}
+
+
+function displayUsers(){
+
+let box=
+document.getElementById("userList");
+
+if(users.length===0){
+
+box.innerHTML=
+"<p>अजून User नाही.</p>";
+
+return;
+
+}
+
+box.innerHTML=
+users.map((u,i)=>`
+
+<div class="user">
+
+<b>${u.name}</b>
+
+<br>
+
+<small>${u.date}</small>
+
+<button class="delete"
+onclick="deleteUser(${i})">
+Delete
+</button>
+
+</div>
+
+`).join("");
+
+}
+
+
+function deleteUser(index){
+
+let name=users[index].name;
+
+users.splice(index,1);
+
+localStorage.setItem(
+"users",
+JSON.stringify(users)
+);
+
+reports.unshift(
+"User delete केला: "+name
+);
+
+localStorage.setItem(
+"reports",
+JSON.stringify(reports)
+);
+
+displayUsers();
+
+}
+
+
+function saveSettings(){
+
+let name=
+document.getElementById("panelName")
+.value.trim();
+
+if(!name){
+alert("Panel Name टाका.");
+return;
+}
+
+document.getElementById("headerName")
+.innerText=name;
+
+localStorage.setItem(
+"panelName",
+name
+);
+
+document.getElementById("settingMessage")
+.innerText=
+"✅ Settings सेव्ह झाले.";
+
+reports.unshift(
+"Panel Name बदलले: "+name
+);
+
+localStorage.setItem(
+"reports",
+JSON.stringify(reports)
+);
+
+}
+
+
+function displayReports(){
+
+let box=
+document.getElementById("reportsList");
+
+if(reports.length===0){
+
+box.innerHTML="No Reports";
+
+return;
+
+}
+
+box.innerHTML=
+reports.map(r=>`
+
+<div style="padding:10px;border-bottom:1px solid #ddd">
+${r}
+</div>
+
+`).join("");
+
+}
+
+
+function clearReports(){
+
+reports=[];
+
+localStorage.setItem(
+"reports",
+JSON.stringify(reports)
+);
+
+displayReports();
+
+}
+
+
+let savedName=
+localStorage.getItem("panelName");
+
+if(savedName){
+
+document.getElementById("headerName")
+.innerText=savedName;
+
+document.getElementById("panelName")
+.value=savedName;
+
+}
+
+
+generateResult();
+
+displayHistory();
+
+</script>
 
 </body>
 </html>
