@@ -2,12 +2,91 @@
 <!DOCTYPE html>
 <html lang="mr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Pravin X Panel Admin</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin Panel</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+body{font-family:Arial,sans-serif;background:#f2f4f7;margin:0;padding:20px}
+.card{max-width:440px;margin:20px auto;background:white;padding:20px;border-radius:14px}
+input,select,button{box-sizing:border-box;width:100%;padding:13px;margin:8px 0;border:1px solid #ccc;border-radius:8px}
+button{background:#166534;color:white;font-weight:bold;border:0}
+#msg{overflow-wrap:anywhere}
+</style>
 </head>
 <body>
-  <h2>Pravin X Panel - Admin</h2>
-  <p>Admin Panel तयार होत आहे.</p>
+<div class="card">
+<h2>X Panel</h2>
+<h3>Admin Login</h3>
+<input id="email" type="email" placeholder="Admin Email">
+<input id="password" type="password" placeholder="Password">
+<button onclick="login()">Login</button>
+
+<h3>निकाल नोंदवा</h3>
+<input id="period" placeholder="Period नंबर">
+<select id="number">
+<option value="">Number निवडा</option>
+<option value="0">0</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+</select>
+<select id="color">
+<option value="">Color निवडा</option>
+<option value="Green">Green</option>
+<option value="Red">Red</option>
+<option value="Violet">Violet</option>
+</select>
+<button onclick="saveResult()">निकाल सेव्ह करा</button>
+<p id="msg"></p>
+</div>
+
+<script>
+const SUPABASE_URL = "https://uxawiuqxznzxtjczffiq.supabase.co";
+const SUPABASE_KEY = "sb_publishable_JWlyORcrUkUYgLSOo7449w_WMSywzkA";
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+async function login(){
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const {data,error} = await db.auth.signInWithPassword({email,password});
+  if(error){
+    document.getElementById("msg").textContent = "Login त्रुटी: " + error.message;
+    return;
+  }
+  document.getElementById("msg").textContent = "Admin Login यशस्वी!";
+}
+
+async function saveResult(){
+  const {data:{user}} = await db.auth.getUser();
+  if(!user){
+    document.getElementById("msg").textContent = "आधी Admin Login करा.";
+    return;
+  }
+  const period = document.getElementById("period").value.trim();
+  const number = document.getElementById("number").value;
+  const color = document.getElementById("color").value;
+
+  if(!period || number === "" || !color){
+    document.getElementById("msg").textContent = "Period, Number आणि Color भरा.";
+    return;
+  }
+
+  const {error} = await db.from("wingo_results").insert({
+    period: period,
+    number: Number(number),
+    color: color
+  });
+
+  document.getElementById("msg").textContent =
+    error ? "त्रुटी: " + error.message : "निकाल सेव्ह झाला!";
+}
+</script>
 </body>
 </html>
